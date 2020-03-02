@@ -1,0 +1,61 @@
+#### Minimum profit in DFI to make an anchor
+[DFI.Anchoring.Profit]
+MinDfiReward = 10.0 # roughly one anchor per hour
+
+#### Anchoring general settings
+[DFI.Anchoring]
+## User's P2PKH address (in DeFi chain) for anchoring reward
+RewardAddress = "7000000000000000000000000000000000"
+## Network-wide anchor marker BTC address. Do not change if not sure.
+AnchorsAddress = "mysX5XnqsUedid4JWGenbEg6DuRraqTNYh"
+
+#### Detection of competing anchors
+[DFI.Anchoring.Competing]
+## Use either OneOf or AllOf mode.
+## OneOf will consider other txs non-competing if at least one condition below is true.
+## AllOf will consider other txs non-competing if all the conditions below are true.
+Mode = "OneOf"
+## Minimum transaction age to consider other txs non-competing. Seconds.
+TxTimeout = 3600
+## Minimum FeeRate advantage to consider other txs non-competing. Ratio.
+FeeRateAdvantage = 5.0
+
+#### DFI RPC credentials
+[DFI.RPC]
+Hostname = "localhost"
+Port = 18333
+User = "rpcuser"
+Password = "rpcpass"
+
+#### BTC RPC credentials
+[BTC.RPC]
+Hostname = "localhost"
+Port = 18332
+User = "rpcuser"
+Password = "rpcpass"
+
+#### Bitcoin wallet settings
+[BTC.Wallet]
+## Name of bitcoind wallet. Set to "" for default wallet.
+WalletName = ""
+
+### Fee rate configuration.
+[BTC.Wallet.FeeRate]
+### Use either Fixed or Estimation mode.
+Mode = "Estimation"
+### FixedRate (optional) is fixed fee rate. Used in a case if mode is "Fixed".
+FixedRate = 0.0
+
+#### Feerate estimation settings (optional). Used in a case if mode is "Estimation".
+[BTC.Wallet.FeeRate.Estimation]
+## Confirmation target in blocks (1 - 1008)
+ConfTarget = 2
+## Whether to return a more conservative estimate which also satisfies
+## a longer history. A conservative estimate potentially returns a
+## higher feerate and is more likely to be sufficient for the desired
+## target, but is not as responsive to short term drops in the
+## prevailing fee market.  Must be one of:
+## "UNSET"
+## "ECONOMICAL"
+## "CONSERVATIVE"
+EstimateMode = "CONSERVATIVE"
