@@ -93,6 +93,18 @@ def anchript(cfg, checkProfit, checkCompeting, createAnchor, sendAnchor):
     testRpc(dfi, "DeFi")
     testRpc(btc, "Bitcoin")
 
+    # Get BTC feerate
+    feeRate = getFeeRate(cfg.BTC.Wallet.FeeRate, btc)
+
+    if checkCompeting:
+        log.info("checking competing anchors in BTC mempool")
+        competingTxs = findCompetingAnchors(cfg.DFI.Anchoring, btc, feeRate, {}, 3)
+        if competingTxs:
+            log.crit("competing anchors present in mempool: %s" % competingTxs)
+        log.success("ok\n")
+    else:
+        log.warning("skip checking competing anchors in BTC mempool\n")
+
     log.info("requesting anchor template from DeFi RPC")
     template = dfi.spv_createanchortemplate(cfg.DFI.Anchoring.RewardAddress)
     log.info("* DeFi block      : %s" % template["defiHash"])
@@ -107,18 +119,6 @@ def anchript(cfg, checkProfit, checkCompeting, createAnchor, sendAnchor):
         log.success("ok\n")
     else:
         log.warning("skip checking minimum profit conditions\n")
-
-    # Get BTC feerate
-    feeRate = getFeeRate(cfg.BTC.Wallet.FeeRate, btc)
-
-    if checkCompeting:
-        log.info("checking competing anchors in BTC mempool")
-        competingTxs = findCompetingAnchors(cfg.DFI.Anchoring, btc, feeRate, {}, 3)
-        if competingTxs:
-            log.crit("competing anchors present in mempool: %s" % competingTxs)
-        log.success("ok\n")
-    else:
-        log.warning("skip checking competing anchors in BTC mempool\n")
 
     if not createAnchor:
         log.warning("skip creation of anchor transaction\n")
