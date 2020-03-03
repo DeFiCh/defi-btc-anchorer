@@ -126,7 +126,8 @@ def anchript(cfg, checkProfit, checkCompeting, createAnchor, sendAnchor):
 
     log.info("creation of anchor transaction")
     try:
-        fundedTx = btc.fundrawtransaction(template["txHex"], {"feeRate": feeRate})
+        outsLen = len(btc.decoderawtransaction(template["txHex"])["vout"])
+        fundedTx = btc.fundrawtransaction(template["txHex"], {"feeRate": feeRate, "changePosition": outsLen})
     except Exception as e:
         log.crit("failed to fund transaction: %s" % e)
     try:
