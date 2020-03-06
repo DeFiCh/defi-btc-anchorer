@@ -52,9 +52,13 @@ def findCompetingAnchors(cfg, rpc, myFeeRate, alreadyChecked, repeatingChecks):
     for txid, txInfo in txInfos.items():
         if txid in alreadyChecked:
             continue
+        if not "vsize" in txInfo:
+            log.crit("incompatible BTC RPC version (getrawmempool.vsize field not found)")
+        if not "fees" in txInfo:
+            log.crit("incompatible BTC RPC version (getrawmempool.fees field not found)")
         alreadyChecked[txid] = True
         # check competing conditions. check it first because it's cheap
-        feeRate = int((txInfo["fees"]["base"] * 100000000 * 1000) / Decimal(txInfo["size"]))/Decimal(100000000)
+        feeRate = int((txInfo["fees"]["base"] * 100000000 * 1000) / Decimal(txInfo["vsize"]))/Decimal(100000000)
         age = time.time() - txInfo["time"]
 
         isCompetingFeeRate = feeRate * Decimal(cfg.Competing.FeeRateAdvantage) > myFeeRate
