@@ -7,7 +7,7 @@ MinDfiReward = 10.0 # roughly one anchor per hour
 ## User's P2PKH address (in DeFi chain) for anchoring reward
 RewardAddress = "7000000000000000000000000000000000"
 ## Network-wide anchor marker BTC address. Do not change if not sure.
-AnchorsAddress = "mysX5XnqsUedid4JWGenbEg6DuRraqTNYh"
+AnchorsAddress = "mtANGiuXturik8b3T7FVe6dV31v3AdEJUt"
 
 #### Detection of competing anchors
 [DFI.Anchoring.Competing]
