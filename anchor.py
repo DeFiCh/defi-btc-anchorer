@@ -87,8 +87,8 @@ def findCompetingAnchors(cfg, rpc, myFeeRate, alreadyChecked, repeatingChecks):
 
     return competingList
 
-# anchript is a main routine to send an acnhor transaction
-def anchript(cfg, checkProfit, checkCompeting, createAnchor, sendAnchor):
+# anchorIt is a main routine to send an anchor transaction
+def anchorIt(cfg, checkProfit, checkCompeting, createAnchor, sendAnchor):
     # Open RPC connections
     dfi = openRpc(cfg.DFI.RPC, None)
     btc = openRpc(cfg.BTC.RPC, cfg.BTC.Wallet.WalletName)
@@ -173,13 +173,13 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Read config
-    cfg = config.mustLoadAnchript(args.config)
+    cfg = config.mustLoadAnchorIt(args.config)
 
     # Execute main routine
     while True:
         exitCode = 1
         try:
-            anchript(cfg, args.checkprofit == "yes", args.checkcompeting == "yes", args.createanchor == "yes", args.sendanchor == "yes")
+            anchorIt(cfg, args.checkprofit == "yes", args.checkcompeting == "yes", args.createanchor == "yes", args.sendanchor == "yes")
             exitCode = 0
         except ConnectionRefusedError as e:
             log.error("RPC connection refused: %s" % e)
