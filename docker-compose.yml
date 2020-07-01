@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  main:
+    build: .
+    restart: on-failure
+    command: python ./main.py --config ./config.toml --repeat 3600
+    # command: python ./main.py --config ./config.toml --repeat 0 --sendanchor no

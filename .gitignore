@@ -2,4 +2,4 @@
 __pycache__/
 
 # configs
-*.toml
+config.toml

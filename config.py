@@ -60,8 +60,8 @@ class Config:
     return '{%s}' % str(', '.join('%s : %s' % (k, repr(v)) for
       (k, v) in self.__dict__.items()))
 
-# mustLoadAnchorIt load and check the anchorIt config, and exits on any error
-def mustLoadAnchorIt(cfgPath):
+# mustLoad load and check the anchor config, and exits on any error
+def mustLoad(cfgPath):
     try:
         cfg = Config(toml.load(cfgPath))
         checkConfig(cfg)

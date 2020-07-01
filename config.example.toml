@@ -23,14 +23,14 @@ FeeRateAdvantage = 5.0
 #### DFI RPC credentials
 [DFI.RPC]
 Hostname = "localhost"
-Port = 18333
+Port = 8554
 User = "rpcuser"
 Password = "rpcpass"
 
 #### BTC RPC credentials
 [BTC.RPC]
 Hostname = "localhost"
-Port = 18332
+Port = 8332
 User = "rpcuser"
 Password = "rpcpass"
 

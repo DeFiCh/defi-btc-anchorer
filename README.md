@@ -1,19 +1,20 @@
 # defi-btc-anchorer
 
-A simple script for periodic submission of DeFi anchors into BTC blockchain.
+A simple python script for periodic submission of DFI (DeFi Blockchain) anchors into the BTC (Bitcoin) blockchain.
 
 It's configurable to check minimum profit conditions and detect other competing anchor transactions in BTC mempool.
 
-# Deps
-Install python3 using your favorite package manager. Once python3 is installed, install the following python packages:
-```shell
-pip3 install python-bitcoinrpc
-pip3 install toml
-```
+# Docker
+
+- Make sure have a config file as given below
+- `docker-compose up`
 
 # Running
-First things first - create your configuration file. Check out example configs `mainnet.example.toml` and `testnet.example.toml`. `mainnet.example.toml` should be used
-with DeFi and BTC mainnet, and `testnet.example.toml` with DeFi and BTC testnet.
+
+- In a system with python3 and pip3 installed, install dependencies: `pip install -r requirements.txt`
+- Create your configuration file.
+- Create config file to say, `./config.toml` (See `config.example.toml` for example)
+- Run `main.py`
 
 You'll have to change at least the following fields in an example config file:
 - RewardAddress - User's P2PKH address (in DeFi chain) for anchoring reward
@@ -22,16 +23,16 @@ You'll have to change at least the following fields in an example config file:
 
 Once configuration file is created, use the following command to test your setup:
 ```shell
-./anchor.py --config /path/to/config.toml --sendanchor no
+./main.py --config ./config.toml --sendanchor no
 ```
 The command above will run all the checks, create the anchor transaction, but won't send it into BTC mempool.
 
 Once you've ensured everything is working as you assumed, run the following command to create an anchor:
 ```shell
-./anchor.py --config /path/to/config.toml
+./main.py --config ./config.toml
 ```
 
 You may add the `--repeat 30` flag to repeat the routine every 30 seconds:
 ```shell
-./anchor.py --config /path/to/config.toml --repeat 30
+./main.py --config ./config.toml --repeat 30
 ```

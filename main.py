@@ -87,8 +87,8 @@ def findCompetingAnchors(cfg, rpc, myFeeRate, alreadyChecked, repeatingChecks):
 
     return competingList
 
-# anchorIt is a main routine to send an anchor transaction
-def anchorIt(cfg, checkProfit, checkCompeting, createAnchor, sendAnchor):
+# anchor is the main routine to send an anchor transaction
+def anchor(cfg, checkProfit, checkCompeting, createAnchor, sendAnchor):
     # Open RPC connections
     dfi = openRpc(cfg.DFI.RPC, None)
     btc = openRpc(cfg.BTC.RPC, cfg.BTC.Wallet.WalletName)
@@ -157,7 +157,7 @@ def anchorIt(cfg, checkProfit, checkCompeting, createAnchor, sendAnchor):
 if __name__ == '__main__':
 
     # Load config
-    parser = argparse.ArgumentParser(description='Anchorer script to submit DeFi anchors on BTC blockchain.')
+    parser = argparse.ArgumentParser(description='A simple script to submit DeFi anchors on BTC blockchain.')
     parser.add_argument('--config', metavar='config.toml', dest='config', type=str, required=True,
                         help='config file in TOML format')
     parser.add_argument('--checkprofit', dest='checkprofit', type=str, required=False, default="yes", choices=["yes", "no"],
@@ -173,13 +173,13 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Read config
-    cfg = config.mustLoadAnchorIt(args.config)
+    cfg = config.mustLoad(args.config)
 
     # Execute main routine
     while True:
         exitCode = 1
         try:
-            anchorIt(cfg, args.checkprofit == "yes", args.checkcompeting == "yes", args.createanchor == "yes", args.sendanchor == "yes")
+            anchor(cfg, args.checkprofit == "yes", args.checkcompeting == "yes", args.createanchor == "yes", args.sendanchor == "yes")
             exitCode = 0
         except ConnectionRefusedError as e:
             log.error("RPC connection refused: %s" % e)
